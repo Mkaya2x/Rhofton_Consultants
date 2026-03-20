@@ -1,27 +1,16 @@
 import Button from "../components/Button.jsx";
+import Seo from "../components/Seo.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
-
-const cases = [
-  {
-    title: "Regional Hospital Network Transformation",
-    industry: "Hospital Operations",
-    impact: "Reduced patient backlog by 32% and improved staff satisfaction."
-  },
-  {
-    title: "Compliance Acceleration for Clinic Group",
-    industry: "Quality & Compliance",
-    impact: "Achieved full accreditation readiness within 12 weeks."
-  },
-  {
-    title: "Digital Health Infrastructure Rollout",
-    industry: "Health IT",
-    impact: "Implemented EMR and analytics dashboards across 4 sites."
-  }
-];
+import { caseStudies } from "../data/caseStudies.js";
 
 export default function CaseStudies() {
   return (
     <div>
+      <Seo
+        title="Case Studies | Rhofton Consultants"
+        description="Explore healthcare case studies and outcomes delivered by Rhofton Consultants."
+        path="/case-studies"
+      />
       <section className="section-pad">
         <div className="mx-auto max-w-6xl">
           <SectionHeading
@@ -30,11 +19,14 @@ export default function CaseStudies() {
             subtitle="A selection of recent engagements that show how we deliver measurable impact."
           />
           <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {cases.map((item) => (
+            {caseStudies.map((item) => (
               <div key={item.title} className="card-surface p-6">
                 <p className="text-xs uppercase tracking-[0.3em] text-emerald-600">{item.industry}</p>
                 <h3 className="mt-3 font-heading text-lg font-semibold text-evergreen-800">{item.title}</h3>
                 <p className="mt-4 text-sm text-slate-600">{item.impact}</p>
+                <Button to={`/case-studies/${item.slug}`} variant="light" className="mt-6 w-full">
+                  View Case Study
+                </Button>
               </div>
             ))}
           </div>

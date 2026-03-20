@@ -1,9 +1,15 @@
 import Button from "../components/Button.jsx";
+import Seo from "../components/Seo.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 
 export default function About() {
   return (
     <div>
+      <Seo
+        title="About Rhofton Consultants"
+        description="Learn about Rhofton Consultants and our healthcare advisory mission across East Africa."
+        path="/about"
+      />
       <section className="section-pad">
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div>

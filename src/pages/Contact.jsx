@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../components/Button.jsx";
+import Seo from "../components/Seo.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 
 const initialState = {
@@ -13,12 +14,13 @@ const initialState = {
 export default function Contact() {
   const [form, setForm] = useState(initialState);
   const [status, setStatus] = useState({ type: "idle", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChange = (event) => {
     setForm((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     if (!form.name || !form.email || !form.message) {
       setStatus({ type: "error", message: "Please complete all required fields." });
@@ -29,15 +31,40 @@ export default function Contact() {
       setStatus({ type: "error", message: "Please provide a valid email address." });
       return;
     }
-    setStatus({
-      type: "success",
-      message: "Thanks! Your request has been sent. We will reply within 24 hours."
-    });
-    setForm(initialState);
+    setIsSubmitting(true);
+    setStatus({ type: "idle", message: "" });
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      });
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Submission failed.");
+      }
+      setStatus({
+        type: "success",
+        message: "Thanks! Your request has been sent. We will reply within 24 hours."
+      });
+      setForm(initialState);
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message: error.message || "Something went wrong. Please try again."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div>
+      <Seo
+        title="Contact Rhofton Consultants"
+        description="Contact Rhofton Consultants to discuss healthcare strategy, compliance, operations, or health IT."
+        path="/contact"
+      />
       <section className="section-pad">
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
@@ -148,9 +175,10 @@ export default function Contact() {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-evergreen-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-evergreen-700"
+                  disabled={isSubmitting}
+                  className="w-full rounded-full bg-evergreen-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-evergreen-700 disabled:cursor-not-allowed disabled:bg-emerald-300"
                 >
-                  Submit Request
+                  {isSubmitting ? "Sending..." : "Submit Request"}
                 </button>
               </div>
             </form>

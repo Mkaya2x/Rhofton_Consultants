@@ -1,4 +1,5 @@
 import Button from "../components/Button.jsx";
+import Seo from "../components/Seo.jsx";
 import SectionHeading from "../components/SectionHeading.jsx";
 import ServiceCard from "../components/ServiceCard.jsx";
 import { services } from "../data/services.js";
@@ -6,6 +7,11 @@ import { services } from "../data/services.js";
 export default function Home() {
   return (
     <div>
+      <Seo
+        title="Rhofton Consultants | Healthcare Strategy & Operations"
+        description="Healthcare strategy, hospital management, quality compliance, and health IT solutions for hospitals and clinics."
+        path="/"
+      />
       <section className="section-pad bg-hero-grid">
         <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="animate-rise">
@@ -61,7 +67,7 @@ export default function Home() {
           />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((service) => (
-              <ServiceCard key={service.title} {...service} />
+              <ServiceCard key={service.title} {...service} link={`/services/${service.slug}`} />
             ))}
           </div>
         </div>

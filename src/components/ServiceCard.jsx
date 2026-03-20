@@ -1,4 +1,6 @@
-export default function ServiceCard({ title, description, outcomes }) {
+import { Link } from "react-router-dom";
+
+export default function ServiceCard({ title, description, outcomes, link }) {
   return (
     <div className="card-surface flex h-full flex-col gap-4 p-6">
       <h3 className="font-heading text-xl font-semibold text-evergreen-800">{title}</h3>
@@ -11,6 +13,11 @@ export default function ServiceCard({ title, description, outcomes }) {
           </li>
         ))}
       </ul>
+      {link && (
+        <Link to={link} className="pt-2 text-sm font-semibold text-evergreen-700 hover:text-evergreen-800">
+          Learn more →
+        </Link>
+      )}
     </div>
   );
 }
