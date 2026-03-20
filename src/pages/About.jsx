@@ -31,7 +31,11 @@ export default function About() {
             </div>
           </div>
           <div className="card-surface overflow-hidden">
-            <img src="/img/images.jpg" alt="Consulting collaboration" className="h-72 w-full object-cover" />
+            <img
+              src="/img/what-can-you-do-with-a-master-of-business-administration-in-healthcare.jpeg"
+              alt="Healthcare strategy workshop"
+              className="h-72 w-full object-cover"
+            />
             <div className="p-6">
               <p className="text-sm font-semibold text-evergreen-700">Our mission</p>
               <p className="mt-2 text-sm text-slate-600">
